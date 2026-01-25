@@ -8,8 +8,7 @@ import re
 import json
 from pydantic import BaseModel
 from typing import List, Optional
-from duckduckgo_search import DDGS
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 from tenacity import retry, stop_after_attempt, wait_exponential
 import time
 import random
@@ -86,22 +85,22 @@ async def generate_itinerary(url: str):
             itinerary_data = json.loads(response.text)
             
             # Fetch images for each day
-            print("Fetching images...")
-            with DDGS() as ddgs:
-                for day in itinerary_data.get("days", []):
-                    query = day.get("image_query")
-                    if query:
-                        # Random delay to avoid rate limits (2-4 seconds)
-                        time.sleep(random.uniform(2, 4))
-                        try:
-                            # Try fetching once, fail gracefully
-                            results = list(ddgs.images(query, max_results=1))
-                            if results:
-                                day["image_url"] = results[0]["image"]
-                        except Exception as e:
-                            print(f"Failed to fetch image for {query}: {e}")
-                            # Optional: Set a placeholder if needed, or leave blank to fallback to UI default
-                            # day["image_url"] = f"https://placehold.co/800x400?text={query.replace(' ', '+')}"
+            # print("Fetching images...")
+            # with DDGS() as ddgs:
+            #     for day in itinerary_data.get("days", []):
+            #         query = day.get("image_query")
+            #         if query:
+            #             # Random delay to avoid rate limits (2-4 seconds)
+            #             time.sleep(random.uniform(2, 4))
+            #             try:
+            #                 # Try fetching once, fail gracefully
+            #                 results = list(ddgs.images(query, max_results=1))
+            #                 if results:
+            #                     day["image_url"] = results[0]["image"]
+            #             except Exception as e:
+            #                 print(f"Failed to fetch image for {query}: {e}")
+            #                 # Optional: Set a placeholder if needed, or leave blank to fallback to UI default
+            #                 # day["image_url"] = f"https://placehold.co/800x400?text={query.replace(' ', '+')}"
                             
             return itinerary_data
         except json.JSONDecodeError:

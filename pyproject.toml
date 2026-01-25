@@ -9,4 +9,7 @@ dependencies = [
     "google-genai>=1.59.0",
     "uvicorn>=0.40.0",
     "youtube-transcript-api>=1.2.3",
+    "ddgs>=5.0.0",
+    "tenacity>=8.2.3",
+    "python-dotenv>=1.0.0",
 ]
