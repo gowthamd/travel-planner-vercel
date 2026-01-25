@@ -1,0 +1,5 @@
+fastapi[standard]>=0.128.0
+google-genai>=1.59.0
+uvicorn>=0.40.0
+youtube-transcript-api>=1.2.3
+duckduckgo-search>=5.0.0
